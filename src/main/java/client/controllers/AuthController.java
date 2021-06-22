@@ -2,7 +2,7 @@ package client.controllers;
 
 import client.App;
 import client.CommandManager;
-import client.utility.AlertManager;
+import client.utility.DialogManager;
 import common.Reply;
 import common.User;
 import javafx.collections.FXCollections;
@@ -69,14 +69,14 @@ public class AuthController {
             Reply reply = commandManager.authorize(signUpButton.isSelected(), loginField.getText(), passwordField.getText());
             if (reply.isSuccessful()) {
                 if (signUpButton.isSelected()) {
-                    AlertManager.createAlert("Info", "Registration completed successfully!", Alert.AlertType.INFORMATION, false);
+                    DialogManager.createAlert("Info", "Registration completed successfully!", Alert.AlertType.INFORMATION, false);
                 }
                 app.startMain(loginField.getText(), reply.getCollection());
             } else {
-                AlertManager.createAlert("Error", reply.getMessage(), Alert.AlertType.ERROR, false);
+                DialogManager.createAlert("Error", reply.getMessage(), Alert.AlertType.ERROR, false);
             }
         } else {
-            AlertManager.createAlert("Error", "Login/password cannot be empty word.", Alert.AlertType.ERROR, false);
+            DialogManager.createAlert("Error", "Login/password cannot be empty word.", Alert.AlertType.ERROR, false);
         }
     }
 

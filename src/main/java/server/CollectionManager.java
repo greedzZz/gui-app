@@ -419,7 +419,7 @@ public class CollectionManager implements Holder {
             if (marines.length() > 1) {
                 return "Elements whose starts with entered value:\n" + marines;
             } else {
-                return "There are no elements whose starts with entered value.\n";
+                return "There are no elements whose name starts with entered value.\n";
             }
         } catch (Exception e) {
             return e.getMessage() + "\n";

@@ -49,7 +49,7 @@ public class CommandManager {
         }
     }
 
-    public Reply processCommand(CommandType type, String argument) throws SocketTimeoutException {
+    public Reply processCommand(CommandType type, String argument, SpaceMarine spaceMarine, Chapter chapter) throws SocketTimeoutException {
         Reply result = new Reply(null, false, null);
         try {
             switch (type) {
@@ -73,6 +73,9 @@ public class CommandManager {
                 case UPDATE:
                     break;
                 case REMOVE_KEY:
+                    Command removeKey = new RemoveKey(user, Integer.parseInt(argument));
+                    commandSender.send(serializer.serialize(removeKey));
+                    result = answerReceiver.receive();
                     break;
                 case CLEAR:
                     Command clear = new Clear(user);
@@ -89,6 +92,9 @@ public class CommandManager {
                 case REPLACE_IF_GREATER:
                     break;
                 case REMOVE_GREATER_KEY:
+                    Command removeGreaterKey = new RemoveGreaterKey(user, Integer.parseInt(argument));
+                    commandSender.send(serializer.serialize(removeGreaterKey));
+                    result = answerReceiver.receive();
                     break;
                 case GROUP_COUNTING_BY_COORDINATES:
                     Command groupCountingByCoordinates = new GroupCountingByCoordinates(user);
@@ -96,8 +102,14 @@ public class CommandManager {
                     result = answerReceiver.receive();
                     break;
                 case FILTER_BY_CHAPTER:
+                    Command filterByChapter = new FilterByChapter(user, chapter);
+                    commandSender.send(serializer.serialize(filterByChapter));
+                    result = answerReceiver.receive();
                     break;
                 case FILTER_STARTS_WITH_NAME:
+                    Command filterStartsWithName = new FilterStartsWithName(user, argument);
+                    commandSender.send(serializer.serialize(filterStartsWithName));
+                    result = answerReceiver.receive();
                     break;
             }
         } catch (SocketTimeoutException e) {

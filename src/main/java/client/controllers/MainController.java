@@ -2,10 +2,11 @@ package client.controllers;
 
 import client.App;
 import client.CommandManager;
-import client.utility.AlertManager;
+import client.utility.DialogManager;
 import common.Reply;
 import common.commands.CommandType;
-import common.content.*;
+import common.content.Chapter;
+import common.content.SpaceMarine;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -13,6 +14,7 @@ import javafx.scene.control.*;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.TreeMap;
 
@@ -144,26 +146,96 @@ public class MainController {
 
     @FXML
     void info() throws IOException {
-        Reply reply = commandManager.processCommand(CommandType.INFO, null);
+        Reply reply = commandManager.processCommand(CommandType.INFO, null, null, null);
         if (reply.isSuccessful()) {
-            AlertManager.createAlert("Info", reply.getMessage(), Alert.AlertType.INFORMATION, false);
-        } else AlertManager.createAlert("Error", reply.getMessage(), Alert.AlertType.ERROR, false);
+            DialogManager.createAlert("Info", reply.getMessage(), Alert.AlertType.INFORMATION, false);
+        } else DialogManager.createAlert("Error", reply.getMessage(), Alert.AlertType.ERROR, false);
     }
 
     @FXML
     void help() throws IOException {
-        Reply reply = commandManager.processCommand(CommandType.HELP, null);
+        Reply reply = commandManager.processCommand(CommandType.HELP, null, null, null);
         if (reply.isSuccessful()) {
-            AlertManager.createAlert("Help", reply.getMessage(), Alert.AlertType.INFORMATION, true);
-        } else AlertManager.createAlert("Error", reply.getMessage(), Alert.AlertType.ERROR, false);
+            DialogManager.createAlert("Help", reply.getMessage(), Alert.AlertType.INFORMATION, true);
+        } else DialogManager.createAlert("Error", reply.getMessage(), Alert.AlertType.ERROR, false);
     }
 
     @FXML
     void groupCountingByCoordinates() throws IOException {
-        Reply reply = commandManager.processCommand(CommandType.GROUP_COUNTING_BY_COORDINATES, null);
+        Reply reply = commandManager.processCommand(CommandType.GROUP_COUNTING_BY_COORDINATES, null, null, null);
         if (reply.isSuccessful()) {
-            AlertManager.createAlert("Group counting by coordinates", reply.getMessage(), Alert.AlertType.INFORMATION, false);
-        } else AlertManager.createAlert("Error", reply.getMessage(), Alert.AlertType.ERROR, false);
+            DialogManager.createAlert("Group counting by coordinates", reply.getMessage(), Alert.AlertType.INFORMATION, false);
+        } else DialogManager.createAlert("Error", reply.getMessage(), Alert.AlertType.ERROR, false);
+    }
+
+    @FXML
+    void clear() throws IOException {
+        Reply reply = commandManager.processCommand(CommandType.CLEAR, null, null, null);
+        if (reply.isSuccessful()) {
+            setCollection(reply.getCollection());
+            DialogManager.createAlert("Clear", reply.getMessage(), Alert.AlertType.INFORMATION, true);
+        } else DialogManager.createAlert("Error", reply.getMessage(), Alert.AlertType.ERROR, false);
+    }
+
+    @FXML
+    void removeKey() throws IOException {
+        Optional<String> input = DialogManager.createDialog("Remove key", "Key:");
+        if (input.isPresent() && !input.get().equals("")) {
+            Reply reply = commandManager.processCommand(CommandType.REMOVE_KEY, input.get(), null, null);
+            if (reply.isSuccessful()) {
+                setCollection(reply.getCollection());
+                DialogManager.createAlert("Remove key", reply.getMessage(), Alert.AlertType.INFORMATION, false);
+            } else DialogManager.createAlert("Error", reply.getMessage(), Alert.AlertType.ERROR, false);
+        }
+    }
+
+    @FXML
+    void removeGreaterKey() throws IOException {
+        Optional<String> input = DialogManager.createDialog("Remove greater key", "Key:");
+        if (input.isPresent() && !input.get().equals("")) {
+            Reply reply = commandManager.processCommand(CommandType.REMOVE_GREATER_KEY, input.get(), null, null);
+            if (reply.isSuccessful()) {
+                setCollection(reply.getCollection());
+                DialogManager.createAlert("Remove greater key", reply.getMessage(), Alert.AlertType.INFORMATION, true);
+            } else DialogManager.createAlert("Error", reply.getMessage(), Alert.AlertType.ERROR, false);
+        }
+    }
+
+    @FXML
+    void filterStartsWithName() throws IOException{
+        TextInputDialog dialog = new TextInputDialog();
+        dialog.setTitle("Filter starts with name");
+        dialog.setHeaderText(null);
+        dialog.setContentText("Name:");
+        Optional<String> input = dialog.showAndWait();
+        if (input.isPresent() && !input.get().trim().equals("")) {
+            Reply reply = commandManager.processCommand(CommandType.FILTER_STARTS_WITH_NAME, input.get().trim(), null, null);
+            if (reply.isSuccessful()) {
+                DialogManager.createAlert("Filter starts with name", reply.getMessage(), Alert.AlertType.INFORMATION, true);
+            } else DialogManager.createAlert("Error", reply.getMessage(), Alert.AlertType.ERROR, false);
+        }
+    }
+
+    @FXML
+    void filterByChapter() throws IOException {
+        TextInputDialog dialogName = new TextInputDialog();
+        dialogName.setTitle("Filter by chapter");
+        dialogName.setHeaderText(null);
+        dialogName.setContentText("Name:");
+        Optional<String> name = dialogName.showAndWait();
+        if (name.isPresent() && !name.get().trim().equals("")) {
+            TextInputDialog dialogWorld = new TextInputDialog();
+            dialogWorld.setTitle("Filter by chapter");
+            dialogWorld.setHeaderText(null);
+            dialogWorld.setContentText("World:");
+            Optional<String> world = dialogWorld.showAndWait();
+            if (world.isPresent() && !world.get().trim().equals("")) {
+                Reply reply = commandManager.processCommand(CommandType.FILTER_BY_CHAPTER, null, null, new Chapter(name.get().trim(), world.get().trim()));
+                if (reply.isSuccessful()) {
+                    DialogManager.createAlert("Filter by chapter", reply.getMessage(), Alert.AlertType.INFORMATION, true);
+                } else DialogManager.createAlert("Error", reply.getMessage(), Alert.AlertType.ERROR, false);
+            }
+        }
     }
 
     public void setLogin(String login) {
@@ -173,6 +245,7 @@ public class MainController {
     public void setCollection(TreeMap<Integer, SpaceMarine> collection) {
         tableTable.setItems(FXCollections.observableArrayList(collection.values()));
     }
+
     public void setCommandManager(CommandManager commandManager) {
         this.commandManager = commandManager;
     }

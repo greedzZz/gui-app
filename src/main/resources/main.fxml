@@ -30,17 +30,17 @@
         </Label>
         <AnchorPane layoutX="1.0" layoutY="58.0" prefHeight="590.0" prefWidth="956.0">
             <children>
-                <Button fx:id="clearButton" layoutX="703.0" layoutY="501.0" mnemonicParsing="false" style="-fx-background-radius: 10; -fx-border-radius: 10;" text="Clear">
+                <Button fx:id="clearButton" onAction="#clear" layoutX="703.0" layoutY="501.0" mnemonicParsing="false" style="-fx-background-radius: 10; -fx-border-radius: 10;" text="Clear">
                     <font>
                         <Font name="Segoe UI" size="16.0" />
                     </font>
                 </Button>
-                <Button fx:id="chapterButton" layoutX="548.0" layoutY="501.0" mnemonicParsing="false" style="-fx-background-radius: 10; -fx-border-radius: 10;" text="Filter by chapter">
+                <Button fx:id="chapterButton" onAction="#filterByChapter" layoutX="548.0" layoutY="501.0" mnemonicParsing="false" style="-fx-background-radius: 10; -fx-border-radius: 10;" text="Filter by chapter">
                     <font>
                         <Font name="Segoe UI" size="16.0" />
                     </font>
                 </Button>
-                <Button fx:id="nameButton" layoutX="768.0" layoutY="501.0" mnemonicParsing="false" style="-fx-background-radius: 10; -fx-border-radius: 10;" text="Filter starts with name">
+                <Button fx:id="nameButton" onAction="#filterStartsWithName" layoutX="768.0" layoutY="501.0" mnemonicParsing="false" style="-fx-background-radius: 10; -fx-border-radius: 10;" text="Filter starts with name">
                     <font>
                         <Font name="Segoe UI" size="16.0" />
                     </font>
@@ -70,12 +70,12 @@
                         <Font name="Segoe UI" size="16.0" />
                     </font>
                 </Button>
-                <Button fx:id="removeGreaterKeyButton" layoutX="143.0" layoutY="545.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="193.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" text="Remove greater key">
+                <Button fx:id="removeGreaterKeyButton" onAction="#removeGreaterKey" layoutX="143.0" layoutY="545.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="193.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" text="Remove greater key">
                     <font>
                         <Font name="Segoe UI" size="16.0" />
                     </font>
                 </Button>
-                <Button fx:id="removeKeyButton" layoutX="10.0" layoutY="545.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="118.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" text="Remove key">
+                <Button fx:id="removeKeyButton" onAction="#removeKey" layoutX="10.0" layoutY="545.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="118.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" text="Remove key">
                     <font>
                         <Font name="Segoe UI" size="16.0" />
                     </font>
