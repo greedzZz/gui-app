@@ -2,6 +2,9 @@ package client.controllers;
 
 import client.App;
 import client.CommandManager;
+import client.utility.AlertManager;
+import common.Reply;
+import common.commands.CommandType;
 import common.content.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -141,7 +144,26 @@ public class MainController {
 
     @FXML
     void info() throws IOException {
+        Reply reply = commandManager.processCommand(CommandType.INFO, null);
+        if (reply.isSuccessful()) {
+            AlertManager.createAlert("Info", reply.getMessage(), Alert.AlertType.INFORMATION, false);
+        } else AlertManager.createAlert("Error", reply.getMessage(), Alert.AlertType.ERROR, false);
+    }
 
+    @FXML
+    void help() throws IOException {
+        Reply reply = commandManager.processCommand(CommandType.HELP, null);
+        if (reply.isSuccessful()) {
+            AlertManager.createAlert("Help", reply.getMessage(), Alert.AlertType.INFORMATION, true);
+        } else AlertManager.createAlert("Error", reply.getMessage(), Alert.AlertType.ERROR, false);
+    }
+
+    @FXML
+    void groupCountingByCoordinates() throws IOException {
+        Reply reply = commandManager.processCommand(CommandType.GROUP_COUNTING_BY_COORDINATES, null);
+        if (reply.isSuccessful()) {
+            AlertManager.createAlert("Group counting by coordinates", reply.getMessage(), Alert.AlertType.INFORMATION, false);
+        } else AlertManager.createAlert("Error", reply.getMessage(), Alert.AlertType.ERROR, false);
     }
 
     public void setLogin(String login) {

@@ -9,7 +9,12 @@ public class AlertManager {
         alert.setTitle(title);
         alert.setHeaderText(null);
         if (!scrollable) alert.setContentText(content);
-        else alert.getDialogPane().setContent(new TextArea(content));
+        else {
+            TextArea area = new TextArea(content);
+            area.setPrefWidth(620);
+            area.setPrefHeight(320);
+            alert.getDialogPane().setContent(area);
+        }
         alert.setResizable(false);
         alert.showAndWait();
     }

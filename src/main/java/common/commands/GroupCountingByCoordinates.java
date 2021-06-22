@@ -1,10 +1,11 @@
 package common.commands;
 
 import common.Holder;
+import common.User;
 
 public class GroupCountingByCoordinates extends Command {
-    public GroupCountingByCoordinates(boolean newbie, String login, String password) {
-        super(newbie, login, password);
+    public GroupCountingByCoordinates(User user) {
+        super(user);
     }
 
     @Override

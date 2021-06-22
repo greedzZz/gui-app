@@ -1,10 +1,11 @@
 package common.commands;
 
 import common.Holder;
+import common.User;
 
 public class FilterStartsWithName extends Command {
-    public FilterStartsWithName(boolean newbie, String login, String password, String strArg) {
-        super(newbie, login, password);
+    public FilterStartsWithName(User user, String strArg) {
+        super(user);
         this.strArg = strArg;
     }
 

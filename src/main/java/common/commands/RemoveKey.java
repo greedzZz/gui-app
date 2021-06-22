@@ -1,10 +1,11 @@
 package common.commands;
 
 import common.Holder;
+import common.User;
 
 public class RemoveKey extends Command {
-    public RemoveKey(boolean newbie, String login, String password, Integer intArg) {
-        super(newbie, login, password);
+    public RemoveKey(User user, Integer intArg) {
+        super(user);
         this.intArg = intArg;
     }
 

@@ -3,6 +3,7 @@ package client;
 import client.utility.*;
 import common.Reply;
 import common.Serializer;
+import common.User;
 import common.commands.*;
 import common.content.Chapter;
 import common.content.SpaceMarine;
@@ -23,6 +24,7 @@ public class CommandManager {
 //    private final ClientAsker asker;
     private final CommandSender commandSender;
     private final AnswerReceiver answerReceiver;
+    private User user;
 
     public CommandManager(SocketAddress address, DatagramSocket socket) {
 //        this.elementReader = new ElementReader();
@@ -37,7 +39,8 @@ public class CommandManager {
 
     public Reply authorize(boolean newbie, String login, String password) {
         try {
-            commandSender.send(serializer.serialize(new Auth(newbie, login, Scrambler.getPassword(password))));
+            commandSender.send(serializer.serialize(new Auth(new User(newbie, login, Scrambler.getPassword(password)))));
+            user = new User(newbie, login, Scrambler.getPassword(password));
             return answerReceiver.receive();
         } catch (IOException e) {
             return new Reply(null, false, "Unfortunately, the server is currently unavailable.");
@@ -46,22 +49,22 @@ public class CommandManager {
         }
     }
 
-    public Reply processCommand(CommandType type, String argument, boolean newbie, String login, String password) throws SocketTimeoutException {
+    public Reply processCommand(CommandType type, String argument) throws SocketTimeoutException {
         Reply result = new Reply(null, false, null);
         try {
             switch (type) {
                 case HELP:
-                    Command help = new Help(newbie, login, password);
+                    Command help = new Help(user);
                     commandSender.send(serializer.serialize(help));
                     result = answerReceiver.receive();
                 break;
                 case INFO:
-                    Command info = new Info(newbie, login, password);
+                    Command info = new Info(user);
                     commandSender.send(serializer.serialize(info));
                     result = answerReceiver.receive();
                 break;
 //                case SHOW:
-//                    Command show = new Show(newbie, login, password);
+//                    Command show = new Show(user);
 //                    commandSender.send(serializer.serialize(show));
 //                    result = answerReceiver.receive();
 //                break;
@@ -72,7 +75,7 @@ public class CommandManager {
                 case REMOVE_KEY:
                     break;
                 case CLEAR:
-                    Command clear = new Clear(newbie, login, password);
+                    Command clear = new Clear(user);
                     commandSender.send(serializer.serialize(clear));
                     result = answerReceiver.receive();
                     break;
@@ -88,9 +91,9 @@ public class CommandManager {
                 case REMOVE_GREATER_KEY:
                     break;
                 case GROUP_COUNTING_BY_COORDINATES:
-                    Command groupCountingByCoordinates = new GroupCountingByCoordinates(newbie, login, password);
+                    Command groupCountingByCoordinates = new GroupCountingByCoordinates(user);
                     commandSender.send(serializer.serialize(groupCountingByCoordinates));
-                    System.out.println(answerReceiver.receive());
+                    result = answerReceiver.receive();
                     break;
                 case FILTER_BY_CHAPTER:
                     break;

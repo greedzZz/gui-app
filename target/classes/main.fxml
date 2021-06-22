@@ -45,17 +45,17 @@
                         <Font name="Segoe UI" size="16.0" />
                     </font>
                 </Button>
-                <Button fx:id="coordinatesButton" layoutX="703.0" layoutY="545.0" mnemonicParsing="false" style="-fx-background-radius: 10; -fx-border-radius: 10;" text="Group counting by coordinates">
+                <Button fx:id="coordinatesButton" onAction="#groupCountingByCoordinates" layoutX="703.0" layoutY="545.0" mnemonicParsing="false" style="-fx-background-radius: 10; -fx-border-radius: 10;" text="Group counting by coordinates">
                     <font>
                         <Font name="Segoe UI" size="16.0" />
                     </font>
                 </Button>
-                <Button fx:id="helpButton" layoutX="10.0" layoutY="501.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="118.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" text="Help">
+                <Button fx:id="helpButton" onAction="#help" layoutX="10.0" layoutY="501.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="118.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" text="Help">
                     <font>
                         <Font name="Segoe UI" size="16.0" />
                     </font>
                 </Button>
-                <Button fx:id="infoButton" layoutX="279.0" layoutY="501.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="57.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" text="Info">
+                <Button fx:id="infoButton" onAction="#info" layoutX="279.0" layoutY="501.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="57.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" text="Info">
                     <font>
                         <Font name="Segoe UI" size="16.0" />
                     </font>

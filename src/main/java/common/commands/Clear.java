@@ -1,10 +1,11 @@
 package common.commands;
 
 import common.Holder;
+import common.User;
 
 public class Clear extends Command {
-    public Clear(boolean newbie, String login, String password) {
-        super(newbie, login, password);
+    public Clear(User user) {
+        super(user);
     }
 
     @Override

@@ -1,11 +1,12 @@
 package common.commands;
 
 import common.Holder;
+import common.User;
 import common.content.SpaceMarine;
 
 public class ReplaceIfGreater extends Command {
-    public ReplaceIfGreater(boolean newbie, String login, String password, Integer intArg, SpaceMarine smArg) {
-        super(newbie, login, password);
+    public ReplaceIfGreater(User user, Integer intArg, SpaceMarine smArg) {
+        super(user);
         this.intArg = intArg;
         this.smArg = smArg;
     }

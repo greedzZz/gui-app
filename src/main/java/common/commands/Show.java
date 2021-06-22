@@ -3,8 +3,8 @@
 //import common.Holder;
 //
 //public class Show extends Command {
-//    public Show(boolean newbie, String login, String password) {
-//        super(newbie, login, password);
+//    public Show(User user) {
+//        super(user);
 //    }
 //
 //    @Override

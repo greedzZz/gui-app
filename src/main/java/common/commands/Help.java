@@ -1,10 +1,11 @@
 package common.commands;
 
 import common.Holder;
+import common.User;
 
 public class Help extends Command {
-    public Help(boolean newbie, String login, String password) {
-        super(newbie, login, password);
+    public Help(User user) {
+        super(user);
     }
 
     @Override

@@ -1,10 +1,11 @@
 package common.commands;
 
 import common.Holder;
+import common.User;
 
 public class Auth extends Command {
-    public Auth(boolean newbie, String login, String password) {
-        super(newbie, login, password);
+    public Auth(User user) {
+        super(user);
     }
 
     @Override

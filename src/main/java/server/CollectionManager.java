@@ -37,7 +37,7 @@ public class CollectionManager implements Holder {
         commandPool.put("remove_greater", "Removes all items from the collection that are greater than the specified one.");
         commandPool.put("replace_if_greater \"key\"", "Replaces the value by key if the new value is greater than the old one.");
         commandPool.put("remove_greater_key \"key\"", "Removes from the collection all elements whose key exceeds the given one.");
-        commandPool.put("group_counting_by_coordinates", "Groups the elements of the collection by the value of the coordinates field, display the number of elements in each group.");
+        commandPool.put("group_counting_by_coordinates", "Groups the elements of the collection by the value of the coordinates field,\n display the number of elements in each group.");
         commandPool.put("filter_by_chapter \"chapter\"", "Displays elements whose chapter field is equal to the given.");
         commandPool.put("filter_starts_with_name \"name\"", "Displays elements whose name field value begins with a given substring.");
     }

@@ -1,10 +1,11 @@
 package common.commands;
 
 import common.Holder;
+import common.User;
 
 public class Info extends Command {
-    public Info(boolean newbie, String login, String password) {
-        super(newbie, login, password);
+    public Info(User user) {
+        super(user);
     }
 
     @Override

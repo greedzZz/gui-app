@@ -14,8 +14,8 @@ public abstract class Command implements Serializable {
     protected Chapter chapArg;
     protected User user;
 
-    public Command(boolean newbie, String login, String password) {
-        user = new User(newbie, login, password);
+    public Command(User user) {
+        this.user = user;
     }
 
     public User getUser() {

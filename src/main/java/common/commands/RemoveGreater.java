@@ -1,11 +1,12 @@
 package common.commands;
 
 import common.Holder;
+import common.User;
 import common.content.SpaceMarine;
 
 public class RemoveGreater extends Command {
-    public RemoveGreater(boolean newbie, String login, String password, SpaceMarine smArg) {
-        super(newbie, login, password);
+    public RemoveGreater(User user, SpaceMarine smArg) {
+        super(user);
         this.smArg = smArg;
     }
 

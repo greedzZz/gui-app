@@ -14,6 +14,6 @@ public enum CommandType {
     REMOVE_GREATER_KEY,
     REMOVE_KEY,
     REPLACE_IF_GREATER,
-    SHOW,
-    UPDATE,
+//    SHOW,
+    UPDATE
 }

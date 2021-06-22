@@ -1,11 +1,12 @@
 package common.commands;
 
 import common.Holder;
+import common.User;
 import common.content.Chapter;
 
 public class FilterByChapter extends Command {
-    public FilterByChapter(boolean newbie, String login, String password, Chapter chapArg) {
-        super(newbie, login, password);
+    public FilterByChapter(User user, Chapter chapArg) {
+        super(user);
         this.chapArg = chapArg;
     }
 

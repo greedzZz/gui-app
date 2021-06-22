@@ -1,11 +1,12 @@
 package common.commands;
 
 import common.Holder;
+import common.User;
 import common.content.SpaceMarine;
 
 public class Insert extends Command {
-    public Insert(boolean newbie, String login, String password, Integer intArg, SpaceMarine smArg) {
-        super(newbie, login, password);
+    public Insert(User user, Integer intArg, SpaceMarine smArg) {
+        super(user);
         this.intArg = intArg;
         this.smArg = smArg;
     }
