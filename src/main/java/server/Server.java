@@ -1,5 +1,6 @@
 package server;
 
+import common.Reply;
 import common.Serializer;
 import common.commands.Command;
 import org.apache.logging.log4j.LogManager;
@@ -24,9 +25,6 @@ public class Server {
     private final ExecutorService service;
 
     public Server(int port) {
-        if (port < 1024) {
-            throw new NumberFormatException();
-        }
         this.address = new InetSocketAddress(port);
         this.serializer = new Serializer();
         service = Executors.newFixedThreadPool(8);
@@ -40,7 +38,7 @@ public class Server {
                 Server server = new Server(Integer.parseInt(args[4]));
                 server.run(args[0], args[1], args[2], args[3]);
             } catch (NumberFormatException e) {
-                logger.error("The port number must be integer, greater than 1024.");
+                logger.error("The port number must be integer.");
             }
         } else {
             logger.error("The program arguments are incorrectly specified.\n" +
@@ -67,9 +65,9 @@ public class Server {
         return command.execute(cm);
     }
 
-    public void sendAnswer(String str) {
+    public void sendAnswer(Reply reply) {
         try {
-            ByteBuffer byteBuffer = ByteBuffer.wrap(serializer.serialize(str));
+            ByteBuffer byteBuffer = ByteBuffer.wrap(serializer.serialize(reply));
             channel.send(byteBuffer, address);
             logger.info("The server sent an answer to client.");
         } catch (IOException e) {

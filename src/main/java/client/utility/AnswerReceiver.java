@@ -1,5 +1,6 @@
 package client.utility;
 
+import common.Reply;
 import common.Serializer;
 
 import java.io.IOException;
@@ -17,10 +18,10 @@ public class AnswerReceiver {
         bytes = new byte[1000000];
     }
 
-    public String receive() throws IOException, ClassNotFoundException {
+    public Reply receive() throws IOException, ClassNotFoundException {
         DatagramPacket packet = new DatagramPacket(bytes, bytes.length);
         socket.setSoTimeout(2 * 1000);
         socket.receive(packet);
-        return (String) serializer.deserialize(bytes);
+        return (Reply) serializer.deserialize(bytes);
     }
 }

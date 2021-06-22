@@ -1,7 +1,11 @@
 package common.content;
 
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
 
 public class SpaceMarine implements Comparable<SpaceMarine>, Serializable {
     private int id; //Значение поля должно быть больше 0, Значение этого поля должно быть уникальным, Значение этого поля должно генерироваться автоматически
@@ -115,7 +119,7 @@ public class SpaceMarine implements Comparable<SpaceMarine>, Serializable {
     }
 
     public void setCreationDate() {
-        this.creationDate = LocalDateTime.now();
+        this.creationDate = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
     }
 
     public Integer getHealth() {
@@ -154,4 +158,55 @@ public class SpaceMarine implements Comparable<SpaceMarine>, Serializable {
         this.owner = owner;
     }
 
+    public SimpleIntegerProperty getIDProperty() {
+        return new SimpleIntegerProperty(getID());
+    }
+
+    public SimpleStringProperty getNameProperty() {
+        return new SimpleStringProperty(getName());
+    }
+
+    public SimpleIntegerProperty getXProperty() {
+        return new SimpleIntegerProperty(getCoordinateX());
+    }
+
+    public SimpleIntegerProperty getYProperty() {
+        return new SimpleIntegerProperty(getCoordinateY());
+    }
+
+    public SimpleStringProperty getDateProperty() {
+        return new SimpleStringProperty(getCreationDate());
+    }
+
+    public SimpleStringProperty getHealthProperty() {
+        if (health != null) return new SimpleStringProperty(getHealth().toString());
+        else return new SimpleStringProperty(null);
+    }
+
+    public SimpleStringProperty getCategoryProperty() {
+        if (category != null) return new SimpleStringProperty(getCategory().toString());
+        else return new SimpleStringProperty(null);
+    }
+
+    public SimpleStringProperty getWeaponProperty() {
+        if (weaponType != null) return new SimpleStringProperty(getWeaponType().toString());
+        else return new SimpleStringProperty(null);
+    }
+
+    public SimpleStringProperty getMeleeProperty() {
+        if (meleeWeapon != null) return new SimpleStringProperty(getMeleeWeapon().toString());
+        else return new SimpleStringProperty(null);
+    }
+
+    public SimpleStringProperty getChapterNameProperty() {
+        return new SimpleStringProperty(getChapterName());
+    }
+
+    public SimpleStringProperty getChapterWorldProperty() {
+        return new SimpleStringProperty(getChapterWorld());
+    }
+
+    public SimpleStringProperty getOwnerProperty() {
+        return new SimpleStringProperty(getOwner());
+    }
 }

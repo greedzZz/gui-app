@@ -1,5 +1,6 @@
 package server.utility;
 
+import common.Reply;
 import common.commands.Auth;
 import common.commands.Command;
 import server.CollectionManager;
@@ -25,19 +26,19 @@ public class CommandExecutor implements Runnable {
         try {
             if (userValidator.validate(command.getUser())) {
                 if (command instanceof Auth) {
-                    server.sendAnswer("Authorization was successful.");
+                    server.sendAnswer(new Reply(collectionManager.getTreeMap(), true, "Authorization was successful."));
                 } else {
                     String answer = server.executeCommand(command, collectionManager);
-                    new Thread(() -> server.sendAnswer(answer)).start();
+                    new Thread(() -> server.sendAnswer(new Reply(collectionManager.getTreeMap(), true, answer))).start();
                 }
             } else if (command.getUser().isNewbie()) {
-                server.sendAnswer("Unfortunately, a user with this login is already registered.\n");
+                server.sendAnswer(new Reply(null, false, "Unfortunately, a user with this login is already registered.\n"));
             } else {
-                server.sendAnswer("Sorry, the login/password is incorrect.");
+                server.sendAnswer(new Reply(null, false, "Sorry, the login/password is incorrect."));
             }
 
         } catch (SQLException s) {
-            server.sendAnswer("A database access error has occurred or connection has closed.\n");
+            server.sendAnswer(new Reply(null, false, "A database access error has occurred or connection has closed.\n"));
         }
     }
 }

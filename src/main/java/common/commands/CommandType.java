@@ -1,0 +1,19 @@
+package common.commands;
+
+public enum CommandType {
+    CLEAR,
+    EXECUTE_SCRIPT,
+    EXIT,
+    FILTER_BY_CHAPTER,
+    FILTER_STARTS_WITH_NAME,
+    GROUP_COUNTING_BY_COORDINATES,
+    HELP,
+    INFO,
+    INSERT,
+    REMOVE_GREATER,
+    REMOVE_GREATER_KEY,
+    REMOVE_KEY,
+    REPLACE_IF_GREATER,
+    SHOW,
+    UPDATE,
+}
