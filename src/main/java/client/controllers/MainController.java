@@ -1,18 +1,19 @@
 package client.controllers;
 
-import client.App;
 import client.CommandManager;
 import client.utility.DialogManager;
 import common.Reply;
 import common.commands.CommandType;
 import common.content.Chapter;
 import common.content.SpaceMarine;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
 import java.io.IOException;
+import java.net.SocketTimeoutException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -20,7 +21,7 @@ import java.util.TreeMap;
 
 public class MainController {
     private CommandManager commandManager;
-    private App app;
+    private EditController editController;
 
     @FXML
     private ResourceBundle resources;
@@ -202,7 +203,7 @@ public class MainController {
     }
 
     @FXML
-    void filterStartsWithName() throws IOException{
+    void filterStartsWithName() throws IOException {
         TextInputDialog dialog = new TextInputDialog();
         dialog.setTitle("Filter starts with name");
         dialog.setHeaderText(null);
@@ -238,6 +239,94 @@ public class MainController {
         }
     }
 
+    @FXML
+    void removeGreater() throws IOException {
+        editController.clear();
+        editController.show();
+        SpaceMarine spaceMarine = editController.getSM();
+        if (spaceMarine != null) {
+            Reply reply = commandManager.processCommand(CommandType.REMOVE_GREATER, null, spaceMarine, null);
+            if (reply.isSuccessful()) {
+                setCollection(reply.getCollection());
+                DialogManager.createAlert("Remove greater", reply.getMessage(), Alert.AlertType.INFORMATION, true);
+            } else DialogManager.createAlert("Error", reply.getMessage(), Alert.AlertType.ERROR, false);
+        }
+    }
+
+    @FXML
+    void replaceIfGreater() throws IOException {
+        Optional<String> input = DialogManager.createDialog("Replace if greater", "Key:");
+        if (input.isPresent() && !input.get().equals("")) {
+            editController.clear();
+            editController.show();
+            SpaceMarine spaceMarine = editController.getSM();
+            if (spaceMarine != null) {
+                Reply reply = commandManager.processCommand(CommandType.REPLACE_IF_GREATER, input.get(), spaceMarine, null);
+                if (reply.isSuccessful()) {
+                    setCollection(reply.getCollection());
+                    DialogManager.createAlert("Replace if greater", reply.getMessage(), Alert.AlertType.INFORMATION, false);
+                } else DialogManager.createAlert("Error", reply.getMessage(), Alert.AlertType.ERROR, false);
+            }
+        }
+    }
+
+    @FXML
+    void insert() throws IOException {
+        Optional<String> input = DialogManager.createDialog("Insert", "Key:");
+        if (input.isPresent() && !input.get().equals("")) {
+            editController.clear();
+            editController.show();
+            SpaceMarine spaceMarine = editController.getSM();
+            if (spaceMarine != null) {
+                Reply reply = commandManager.processCommand(CommandType.INSERT, input.get(), spaceMarine, null);
+                if (reply.isSuccessful()) {
+                    setCollection(reply.getCollection());
+                    DialogManager.createAlert("Insert", reply.getMessage(), Alert.AlertType.INFORMATION, false);
+                } else DialogManager.createAlert("Error", reply.getMessage(), Alert.AlertType.ERROR, false);
+            }
+        }
+    }
+
+    @FXML
+    void update() throws IOException {
+        Optional<String> input = DialogManager.createDialog("Update", "ID:");
+        if (input.isPresent() && !input.get().equals("")) {
+            editController.clear();
+            editController.show();
+            SpaceMarine spaceMarine = editController.getSM();
+            if (spaceMarine != null) {
+                Reply reply = commandManager.processCommand(CommandType.UPDATE, input.get(), spaceMarine, null);
+                if (reply.isSuccessful()) {
+                    setCollection(reply.getCollection());
+                    DialogManager.createAlert("Update", reply.getMessage(), Alert.AlertType.INFORMATION, false);
+                } else DialogManager.createAlert("Error", reply.getMessage(), Alert.AlertType.ERROR, false);
+            }
+        }
+    }
+
+    public void refresh() {
+        Thread refresher = new Thread(() -> {
+            while (true) {
+                Platform.runLater(() -> {
+                    try {
+                        Reply reply = commandManager.processCommand(CommandType.SHOW, null, null, null);
+                        if (reply.isSuccessful()) {
+                            setCollection(reply.getCollection());
+                        } else
+                            DialogManager.createAlert("Error", "Failed to update the table due to server issues.", Alert.AlertType.ERROR, false);
+                    } catch (SocketTimeoutException e) {
+                        DialogManager.createAlert("Error", "Lost connection to server.", Alert.AlertType.ERROR, false);
+                    }
+                });
+                try {
+                    Thread.sleep(10000);
+                } catch (InterruptedException ignored) {
+                }
+            }
+        });
+        refresher.start();
+    }
+
     public void setLogin(String login) {
         loginLabel.setText(login);
     }
@@ -250,7 +339,7 @@ public class MainController {
         this.commandManager = commandManager;
     }
 
-    public void setApp(App app) {
-        this.app = app;
+    public void setEditController(EditController editController) {
+        this.editController = editController;
     }
 }

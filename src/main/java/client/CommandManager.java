@@ -39,7 +39,7 @@ public class CommandManager {
 
     public Reply authorize(boolean newbie, String login, String password) {
         try {
-            commandSender.send(serializer.serialize(new Auth(new User(newbie, login, Scrambler.getPassword(password)))));
+            commandSender.send(serializer.serialize(new Show(new User(newbie, login, Scrambler.getPassword(password)))));
             user = new User(newbie, login, Scrambler.getPassword(password));
             return answerReceiver.receive();
         } catch (IOException e) {
@@ -63,14 +63,20 @@ public class CommandManager {
                     commandSender.send(serializer.serialize(info));
                     result = answerReceiver.receive();
                 break;
-//                case SHOW:
-//                    Command show = new Show(user);
-//                    commandSender.send(serializer.serialize(show));
-//                    result = answerReceiver.receive();
-//                break;
+                case SHOW:
+                    Command show = new Show(user);
+                    commandSender.send(serializer.serialize(show));
+                    result = answerReceiver.receive();
+                break;
                 case INSERT:
+                    Command insert = new Insert(user, Integer.parseInt(argument), spaceMarine);
+                    commandSender.send(serializer.serialize(insert));
+                    result = answerReceiver.receive();
                     break;
                 case UPDATE:
+                    Command update = new Update(user, Integer.parseInt(argument), spaceMarine);
+                    commandSender.send(serializer.serialize(update));
+                    result = answerReceiver.receive();
                     break;
                 case REMOVE_KEY:
                     Command removeKey = new RemoveKey(user, Integer.parseInt(argument));
@@ -84,12 +90,15 @@ public class CommandManager {
                     break;
                 case EXECUTE_SCRIPT:
                     break;
-                case EXIT:
-                    System.exit(0);
-                    break;
                 case REMOVE_GREATER:
+                    Command removeGreater = new RemoveGreater(user, spaceMarine);
+                    commandSender.send(serializer.serialize(removeGreater));
+                    result = answerReceiver.receive();
                     break;
                 case REPLACE_IF_GREATER:
+                    Command replaceIfGreater = new ReplaceIfGreater(user, Integer.parseInt(argument), spaceMarine);
+                    commandSender.send(serializer.serialize(replaceIfGreater));
+                    result = answerReceiver.receive();
                     break;
                 case REMOVE_GREATER_KEY:
                     Command removeGreaterKey = new RemoveGreaterKey(user, Integer.parseInt(argument));

@@ -28,9 +28,10 @@ public class DialogManager {
         dialog.setHeaderText(null);
         dialog.setContentText(content);
         dialog.getEditor().textProperty().addListener((observableValue, oldValue, newValue) -> {
-            if (!newValue.matches("\\d*")) {
+            if (!newValue.matches("\\d{0,10}")) {
                 dialog.getEditor().setText(oldValue);
-            }
+            } else if (newValue.length() == 10 && Long.parseLong(newValue) > Integer.MAX_VALUE)
+                dialog.getEditor().setText(oldValue);
         });
         return dialog.showAndWait();
     }

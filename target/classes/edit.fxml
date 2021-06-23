@@ -76,7 +76,7 @@
       <ChoiceBox fx:id="categoryBox" layoutX="242.0" layoutY="218.0" prefHeight="26.0" prefWidth="96.0" />
       <ChoiceBox fx:id="weaponBox" layoutX="174.0" layoutY="261.0" prefHeight="26.0" prefWidth="165.0" />
       <ChoiceBox fx:id="meleeBox" layoutX="224.0" layoutY="304.0" prefHeight="26.0" prefWidth="116.0" />
-      <Button fx:id="okButton" layoutX="83.0" layoutY="440.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="116.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" text="OK">
+      <Button fx:id="okButton" onAction="#ok" layoutX="83.0" layoutY="440.0" mnemonicParsing="false" prefHeight="38.0" prefWidth="116.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" text="OK">
          <font>
             <Font name="Segoe UI" size="20.0" />
          </font>

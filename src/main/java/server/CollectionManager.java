@@ -60,21 +60,6 @@ public class CollectionManager implements Holder {
                 "Collection size: " + treeMap.size() + "\n";
     }
 
-//    public String show() {
-//        try {
-//            SpaceMarineDescriber smd = new SpaceMarineDescriber();
-//            if (treeMap.isEmpty()) {
-//                throw new Exception("The collection is empty.");
-//            }
-//            return treeMap.values().stream()
-//                    .map(smd::describe)
-//                    .map(str -> str + "\n\n")
-//                    .collect(Collectors.joining());
-//        } catch (Exception e) {
-//            return e.getMessage();
-//        }
-//    }
-
     public String insert(Integer key, SpaceMarine sm, String login) {
         lock.lock();
         try {
@@ -480,18 +465,10 @@ public class CollectionManager implements Holder {
         return "Space marine " + sm.getName() + " has been added to the collection!" + "\n";
     }
 
-    public void close() {
-        try {
-            connection.close();
-        } catch (SQLException s) {
-            System.exit(0);
-        }
-        System.exit(0);
-    }
-
     public void setConnection(Connection connection) {
         this.connection = connection;
     }
+
     public TreeMap<Integer, SpaceMarine> getTreeMap() {
         return treeMap;
     }

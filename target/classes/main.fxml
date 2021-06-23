@@ -60,12 +60,12 @@
                         <Font name="Segoe UI" size="16.0" />
                     </font>
                 </Button>
-                <Button fx:id="insertButton" layoutX="364.0" layoutY="501.0" mnemonicParsing="false" style="-fx-background-radius: 10; -fx-border-radius: 10;" text="Insert">
+                <Button fx:id="insertButton" onAction="#insert" layoutX="364.0" layoutY="501.0" mnemonicParsing="false" style="-fx-background-radius: 10; -fx-border-radius: 10;" text="Insert">
                     <font>
                         <Font name="Segoe UI" size="16.0" />
                     </font>
                 </Button>
-                <Button fx:id="removeGreaterButton" layoutX="364.0" layoutY="545.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="153.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" text="Remove greater">
+                <Button fx:id="removeGreaterButton" onAction="#removeGreater" layoutX="364.0" layoutY="545.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="153.0" style="-fx-background-radius: 10; -fx-border-radius: 10;" text="Remove greater">
                     <font>
                         <Font name="Segoe UI" size="16.0" />
                     </font>
@@ -80,12 +80,12 @@
                         <Font name="Segoe UI" size="16.0" />
                     </font>
                 </Button>
-                <Button fx:id="replaceButton" layoutX="543.0" layoutY="545.0" mnemonicParsing="false" style="-fx-background-radius: 10; -fx-border-radius: 10;" text="Replace if greater">
+                <Button fx:id="replaceButton" onAction="#replaceIfGreater" layoutX="543.0" layoutY="545.0" mnemonicParsing="false" style="-fx-background-radius: 10; -fx-border-radius: 10;" text="Replace if greater">
                     <font>
                         <Font name="Segoe UI" size="16.0" />
                     </font>
                 </Button>
-                <Button fx:id="updateButton" layoutX="445.0" layoutY="501.0" mnemonicParsing="false" style="-fx-background-radius: 10; -fx-border-radius: 10;" text="Update">
+                <Button fx:id="updateButton" onAction="#update" layoutX="445.0" layoutY="501.0" mnemonicParsing="false" style="-fx-background-radius: 10; -fx-border-radius: 10;" text="Update">
                     <font>
                         <Font name="Segoe UI" size="16.0" />
                     </font>

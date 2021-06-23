@@ -1,8 +1,8 @@
 package server.utility;
 
 import common.Reply;
-import common.commands.Auth;
 import common.commands.Command;
+import common.commands.Show;
 import server.CollectionManager;
 import server.Server;
 
@@ -25,7 +25,7 @@ public class CommandExecutor implements Runnable {
     public void run() {
         try {
             if (userValidator.validate(command.getUser())) {
-                if (command instanceof Auth) {
+                if (command instanceof Show) {
                     server.sendAnswer(new Reply(collectionManager.getTreeMap(), true, "Authorization was successful."));
                 } else {
                     String answer = server.executeCommand(command, collectionManager);
@@ -36,7 +36,6 @@ public class CommandExecutor implements Runnable {
             } else {
                 server.sendAnswer(new Reply(null, false, "Sorry, the login/password is incorrect."));
             }
-
         } catch (SQLException s) {
             server.sendAnswer(new Reply(null, false, "A database access error has occurred or connection has closed.\n"));
         }

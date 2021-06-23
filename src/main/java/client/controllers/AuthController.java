@@ -4,7 +4,6 @@ import client.App;
 import client.CommandManager;
 import client.utility.DialogManager;
 import common.Reply;
-import common.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

@@ -1,6 +1,7 @@
 package client;
 
 import client.controllers.AuthController;
+import client.controllers.EditController;
 import client.controllers.MainController;
 import common.content.SpaceMarine;
 import javafx.application.Application;
@@ -61,9 +62,19 @@ public class App extends Application {
         MainController mainController = mainLoader.getController();
         mainController.setLogin(login);
         mainController.setCollection(collection);
-        mainController.setApp(this);
         mainController.setCommandManager(commandManager);
+        FXMLLoader editLoader = new FXMLLoader(getClass().getResource("/edit.fxml"));
+        Parent editRoot = editLoader.load();
+        Scene editScene = new Scene(editRoot);
+        Stage editStage = new Stage();
+        editStage.setScene(editScene);
+        editStage.setResizable(false);
+        editStage.setTitle("Space marines");
+        EditController editController = editLoader.getController();
+        editController.setStage(editStage);
+        mainController.setEditController(editController);
         mainStage.setScene(new Scene(mainRoot));
+        mainController.refresh();
         mainStage.show();
     }
 
