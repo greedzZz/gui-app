@@ -11,7 +11,10 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.SocketTimeoutException;
 import java.net.URL;
@@ -22,6 +25,7 @@ import java.util.TreeMap;
 public class MainController {
     private CommandManager commandManager;
     private EditController editController;
+    private Stage stage;
 
     @FXML
     private ResourceBundle resources;
@@ -304,6 +308,15 @@ public class MainController {
         }
     }
 
+    @FXML
+    void executeScript() throws IOException {
+        FileChooser chooser = new FileChooser();
+        File file = chooser.showOpenDialog(stage);
+        if (file != null) {
+            commandManager.processCommand(CommandType.EXECUTE_SCRIPT, file.getAbsolutePath(), null, null);
+        }
+    }
+
     public void refresh() {
         Thread refresher = new Thread(() -> {
             while (true) {
@@ -341,5 +354,9 @@ public class MainController {
 
     public void setEditController(EditController editController) {
         this.editController = editController;
+    }
+
+    public void setStage(Stage stage) {
+        this.stage = stage;
     }
 }

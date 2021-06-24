@@ -8,33 +8,27 @@ import common.commands.*;
 import common.content.Chapter;
 import common.content.SpaceMarine;
 
-import java.io.File;
 import java.io.IOException;
 import java.net.DatagramSocket;
 import java.net.SocketAddress;
 import java.net.SocketTimeoutException;
-import java.util.Scanner;
 
 public class CommandManager {
-//    private final ElementReader elementReader;
-//    private final ChapterReader chapterReader;
-//    private final ScriptReader scriptReader;
+    private final ElementReader elementReader;
+    private final ChapterReader chapterReader;
+    private final ScriptReader scriptReader;
     private final Serializer serializer;
-//    private final Authenticator authenticator;
-//    private final ClientAsker asker;
     private final CommandSender commandSender;
     private final AnswerReceiver answerReceiver;
     private User user;
 
     public CommandManager(SocketAddress address, DatagramSocket socket) {
-//        this.elementReader = new ElementReader();
-//        this.chapterReader = new ChapterReader();
+        this.elementReader = new ElementReader();
+        this.chapterReader = new ChapterReader();
         this.serializer = new Serializer();
-//        this.authenticator = new Authenticator();
-//        this.asker = new ClientAsker();
         this.commandSender = new CommandSender(address, socket);
         this.answerReceiver = new AnswerReceiver(socket, serializer);
-//        this.scriptReader = new ScriptReader(elementReader, chapterReader, serializer);
+        this.scriptReader = new ScriptReader(elementReader, chapterReader, serializer);
     }
 
     public Reply authorize(boolean newbie, String login, String password) {
@@ -57,17 +51,17 @@ public class CommandManager {
                     Command help = new Help(user);
                     commandSender.send(serializer.serialize(help));
                     result = answerReceiver.receive();
-                break;
+                    break;
                 case INFO:
                     Command info = new Info(user);
                     commandSender.send(serializer.serialize(info));
                     result = answerReceiver.receive();
-                break;
+                    break;
                 case SHOW:
                     Command show = new Show(user);
                     commandSender.send(serializer.serialize(show));
                     result = answerReceiver.receive();
-                break;
+                    break;
                 case INSERT:
                     Command insert = new Insert(user, Integer.parseInt(argument), spaceMarine);
                     commandSender.send(serializer.serialize(insert));
@@ -89,6 +83,9 @@ public class CommandManager {
                     result = answerReceiver.receive();
                     break;
                 case EXECUTE_SCRIPT:
+                    scriptReader.addScript(argument);
+                    scriptReader.readScript(argument, commandSender, answerReceiver, user);
+                    scriptReader.clearScripts();
                     break;
                 case REMOVE_GREATER:
                     Command removeGreater = new RemoveGreater(user, spaceMarine);

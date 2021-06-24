@@ -60,6 +60,7 @@ public class App extends Application {
         FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("/main.fxml"));
         Parent mainRoot = mainLoader.load();
         MainController mainController = mainLoader.getController();
+        mainController.setStage(mainStage);
         mainController.setLogin(login);
         mainController.setCollection(collection);
         mainController.setCommandManager(commandManager);

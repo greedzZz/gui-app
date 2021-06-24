@@ -107,7 +107,7 @@
                         <Font name="Segoe UI" size="16.0"/>
                     </font>
                 </Button>
-                <Button fx:id="scriptButton" layoutX="143.0" layoutY="501.0" mnemonicParsing="false"
+                <Button fx:id="scriptButton" onAction="#executeScript" layoutX="143.0" layoutY="501.0" mnemonicParsing="false"
                         style="-fx-background-radius: 10; -fx-border-radius: 10;" text="Execute script">
                     <font>
                         <Font name="Segoe UI" size="16.0"/>
