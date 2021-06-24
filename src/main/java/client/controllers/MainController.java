@@ -147,6 +147,29 @@ public class MainController {
         meleeColumn.setCellValueFactory(sm -> sm.getValue().getMeleeProperty());
         cNameColumn.setCellValueFactory(sm -> sm.getValue().getChapterNameProperty());
         cWorldColumn.setCellValueFactory(sm -> sm.getValue().getChapterWorldProperty());
+        tableTable.setRowFactory(tableView -> {
+            TableRow<SpaceMarine> row = new TableRow<>();
+            row.setOnMouseClicked(mouseEvent -> {
+                if (mouseEvent.getClickCount() == 2 && !row.isEmpty()) {
+                    SpaceMarine sm = row.getItem();
+                    editController.fill(sm);
+                    editController.show();
+                    SpaceMarine spaceMarine = editController.getSM();
+                    if (spaceMarine != null) {
+                        try {
+                            Reply reply = commandManager.processCommand(CommandType.UPDATE, Integer.toString(sm.getID()), spaceMarine, null);
+                            if (reply.isSuccessful()) {
+                                setCollection(reply.getCollection());
+                                DialogManager.createAlert("Update", reply.getMessage(), Alert.AlertType.INFORMATION, false);
+                            } else DialogManager.createAlert("Error", reply.getMessage(), Alert.AlertType.ERROR, false);
+                        } catch (SocketTimeoutException ignored) {
+
+                        }
+                    }
+                }
+            });
+            return row;
+        });
     }
 
     @FXML

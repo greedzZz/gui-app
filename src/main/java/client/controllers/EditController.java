@@ -172,6 +172,18 @@ public class EditController {
         cWorldField.clear();
     }
 
+    public void fill(SpaceMarine sm) {
+        nameField.setText(sm.getName());
+        xField.setText(Integer.toString(sm.getCoordinateX()));
+        yField.setText(Integer.toString(sm.getCoordinateY()));
+        healthField.setText(Integer.toString(sm.getHealth()));
+        categoryBox.setValue(sm.getCategory().toString());
+        weaponBox.setValue(sm.getWeaponType().toString());
+        meleeBox.setValue(sm.getMeleeWeapon().toString());
+        cNameField.setText(sm.getChapterName());
+        cWorldField.setText(sm.getChapterWorld());
+    }
+
     public void show() {
         stage.showAndWait();
     }

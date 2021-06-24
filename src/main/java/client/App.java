@@ -17,7 +17,6 @@ import java.net.SocketException;
 import java.util.TreeMap;
 
 public class App extends Application {
-    private static InetSocketAddress address;
     private static DatagramSocket socket;
     private static CommandManager commandManager;
     private Stage mainStage;
@@ -80,7 +79,7 @@ public class App extends Application {
     }
 
     public static void connect(int port) throws SocketException {
-        address = new InetSocketAddress("localhost", port);
+        InetSocketAddress address = new InetSocketAddress("localhost", port);
         socket = new DatagramSocket();
         commandManager = new CommandManager(address, socket);
     }

@@ -18,9 +18,9 @@ public class ScriptReader {
     private final LinkedList<String> otherScripts = new LinkedList<>();
     private final Serializer serializer;
 
-    public ScriptReader(ElementReader elementReader, ChapterReader chapterReader, Serializer serializer) {
-        this.elementReader = elementReader;
-        this.chapterReader = chapterReader;
+    public ScriptReader(Serializer serializer) {
+        this.elementReader = new ElementReader();
+        this.chapterReader = new ChapterReader();
         this.serializer = serializer;
     }
 
@@ -198,7 +198,7 @@ public class ScriptReader {
         otherScripts.clear();
     }
 
-    public void addScript(String s) {
-        otherScripts.add(s);
+    public void addScript(String script) {
+        otherScripts.add(script);
     }
 }
