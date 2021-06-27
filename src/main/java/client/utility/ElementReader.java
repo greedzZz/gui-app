@@ -25,7 +25,7 @@ public class ElementReader {
 
         argument = sc.nextLine().trim();
         try {
-            Integer y = Integer.parseInt(argument);
+            int y = Integer.parseInt(argument);
             if (y > 941) {
                 throw new IllegalArgumentException("Coordinate Y max value: 941.");
             }
@@ -35,22 +35,15 @@ public class ElementReader {
         Integer ySM = Integer.parseInt(argument);
 
         argument = sc.nextLine().trim();
-        if (!argument.equals("")) {
-            try {
-                Integer health = Integer.parseInt(argument);
-                if (health < 0) {
-                    throw new IllegalArgumentException("Health value must be greater than 0.");
-                }
-            } catch (NumberFormatException e) {
-                throw new IllegalArgumentException("Health value must be integer or empty word.");
+        try {
+            int health = Integer.parseInt(argument);
+            if (health < 0) {
+                throw new IllegalArgumentException("Health value must be greater than 0.");
             }
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Health value must be integer.");
         }
-        Integer healthSM;
-        if (argument.equals("")) {
-            healthSM = null;
-        } else {
-            healthSM = Integer.parseInt(argument);
-        }
+        Integer healthSM = Integer.parseInt(argument);
 
         argument = sc.nextLine().trim();
         if (!argument.equals("")) {

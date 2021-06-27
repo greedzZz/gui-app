@@ -1,9 +1,9 @@
-package server.utility;
+package common;
 
 import common.content.SpaceMarine;
 
 public class SpaceMarineDescriber {
-    public String describe(SpaceMarine sm) {
+    public static String describe(SpaceMarine sm) {
         return "id: " + sm.getID() + "\n" +
                 "name: " + sm.getName() + "\n" +
                 "coordinate X: " + sm.getCoordinateX() + "\n" +

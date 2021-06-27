@@ -3,7 +3,7 @@ package server;
 import common.Holder;
 import common.content.Chapter;
 import common.content.SpaceMarine;
-import server.utility.SpaceMarineDescriber;
+import common.SpaceMarineDescriber;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -376,10 +376,9 @@ public class CollectionManager implements Holder {
             }
             String chapterName = chapter.getName();
             String chapterWorld = chapter.getWorld();
-            SpaceMarineDescriber smd = new SpaceMarineDescriber();
             String marines = treeMap.values().stream()
                     .filter(sm -> sm.getChapterName().equals(chapterName) && sm.getChapterWorld().equals(chapterWorld))
-                    .map(sm -> smd.describe(sm) + "\n\n")
+                    .map(sm -> SpaceMarineDescriber.describe(sm) + "\n\n")
                     .collect(Collectors.joining());
             if (marines.length() > 1) {
                 return "Elements whose chapter value is equal to entered value:\n" + marines;
@@ -396,10 +395,9 @@ public class CollectionManager implements Holder {
             if (treeMap.isEmpty()) {
                 throw new Exception("The collection is empty.");
             }
-            SpaceMarineDescriber smd = new SpaceMarineDescriber();
             String marines = treeMap.values().stream()
                     .filter(sm -> sm.getName().startsWith(name))
-                    .map(sm -> smd.describe(sm) + "\n\n")
+                    .map(sm -> SpaceMarineDescriber.describe(sm) + "\n\n")
                     .collect(Collectors.joining());
             if (marines.length() > 1) {
                 return "Elements whose starts with entered value:\n" + marines;

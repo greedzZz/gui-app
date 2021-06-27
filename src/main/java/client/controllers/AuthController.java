@@ -10,37 +10,23 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class AuthController {
     private CommandManager commandManager;
     private App app;
 
     @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
-
-    @FXML
     private Label titleLabel;
-
     @FXML
     private TextField loginField;
-
     @FXML
     private PasswordField passwordField;
-
     @FXML
     private Button okButton;
-
     @FXML
     private CheckBox signUpButton;
-
     @FXML
     private ComboBox<String> languageComboBox;
-
     @FXML
     private Label languageLabel;
 

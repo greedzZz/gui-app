@@ -39,8 +39,8 @@ public class DataBaseManager {
             statement = connection.createStatement();
             String sqlCommand = "CREATE TABLE IF NOT EXISTS marines (owner TEXT NOT NULL, id INT PRIMARY KEY," +
                     " name TEXT NOT NULL, coordinate_x INT NOT NULL," +
-                    " coordinate_y INT NOT NULL, creation_date VARCHAR(29) NOT NULL," +
-                    " health INT, astartes_category VARCHAR(8), weapon VARCHAR(16)," +
+                    " coordinate_y INT NOT NULL, creation_date VARCHAR(19) NOT NULL," +
+                    " health INT NOT NULL, astartes_category VARCHAR(8), weapon VARCHAR(16)," +
                     " melee_weapon VARCHAR(11), chapter_name TEXT NOT NULL ," +
                     " chapter_world TEXT NOT NULL);";
             statement.executeUpdate(sqlCommand);

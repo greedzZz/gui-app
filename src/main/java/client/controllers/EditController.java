@@ -9,79 +9,53 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
-import java.net.URL;
-import java.util.ResourceBundle;
-
 public class EditController {
     private Stage stage;
     private SpaceMarine spaceMarine;
 
     @FXML
-    private ResourceBundle resources;
-
-    @FXML
-    private URL location;
-
-    @FXML
     private Label titleLabel;
-
     @FXML
     private Label nameLabel;
-
     @FXML
     private Label xLabel;
-
     @FXML
     private Label yLabel;
-
     @FXML
     private Label healthLabel;
-
     @FXML
     private Label categoryLabel;
-
     @FXML
     private Label weaponLabel;
-
     @FXML
     private Label meleeLabel;
-
     @FXML
     private Label cNameLable;
-
     @FXML
     private Label cWorldLable;
 
     @FXML
     private TextField nameField;
-
     @FXML
     private TextField xField;
-
     @FXML
     private TextField healthField;
-
     @FXML
     private TextField cNameField;
-
     @FXML
     private TextField cWorldField;
-
     @FXML
     private TextField yField;
 
     @FXML
     private ChoiceBox<String> categoryBox;
-
     @FXML
     private ChoiceBox<String> weaponBox;
-
     @FXML
     private ChoiceBox<String> meleeBox;
 
     @FXML
     private Button okButton;
-
     @FXML
     private Button cancelButton;
 
@@ -98,12 +72,10 @@ public class EditController {
         meleeBox.setItems(melees);
         meleeBox.setStyle("-fx-font: 12px \"Sergoe UI\";");
         healthField.textProperty().addListener((observableValue, oldValue, newValue) -> {
-            if (newValue != null) {
-                if (!newValue.matches("\\d{0,10}")) {
-                    healthField.setText(oldValue);
-                } else if (newValue.length() == 10 && Long.parseLong(newValue) > Integer.MAX_VALUE || newValue.length() == 1 && Integer.parseInt(newValue) == 0) {
-                    healthField.setText(oldValue);
-                }
+            if (!newValue.matches("\\d{0,10}")) {
+                healthField.setText(oldValue);
+            } else if (newValue.length() == 10 && Long.parseLong(newValue) > Integer.MAX_VALUE || newValue.length() == 1 && Integer.parseInt(newValue) == 0) {
+                healthField.setText(oldValue);
             }
         });
         xField.textProperty().addListener((observableValue, oldValue, newValue) -> {
@@ -135,12 +107,9 @@ public class EditController {
         nameField.setText(nameField.getText().trim());
         cNameField.setText(cNameField.getText().trim());
         cWorldField.setText(cWorldField.getText().trim());
-        if (healthField.getText().equals("")) healthField.setText(null);
-        if (nameField.getText().equals("") || xField.getText().equals("") || yField.getText().equals("") || cNameField.getText().equals("") || cWorldField.getText().equals("")) {
-            DialogManager.createAlert("Error", "\"Name\", \"x\", \"y\", \"chapter name\" and \"chapter world\" values cannot be empty words.", Alert.AlertType.ERROR, false);
+        if (nameField.getText().equals("") || xField.getText().equals("") || yField.getText().equals("") || cNameField.getText().equals("") || cWorldField.getText().equals("") || healthField.getText().equals("")) {
+            DialogManager.createAlert("Error", "\"Name\", \"x\", \"y\", \"health\", \"chapter name\" and \"chapter world\" values cannot be empty words.", Alert.AlertType.ERROR, false);
         } else {
-            Integer health = null;
-            if (healthField.getText() != null) health = Integer.parseInt(healthField.getText());
             AstartesCategory category = null;
             if (categoryBox.getValue() != null) category = AstartesCategory.valueOf(categoryBox.getValue());
             Weapon weapon = null;
@@ -148,7 +117,7 @@ public class EditController {
             MeleeWeapon meleeWeapon = null;
             if (meleeBox.getValue() != null) meleeWeapon = MeleeWeapon.valueOf(meleeBox.getValue());
             spaceMarine = new SpaceMarine(nameField.getText(), new Coordinates(Integer.parseInt(xField.getText()),
-                    Integer.parseInt(yField.getText())), health,
+                    Integer.parseInt(yField.getText())), Integer.parseInt(healthField.getText()),
                     category, weapon, meleeWeapon, new Chapter(cNameField.getText(), cWorldField.getText()));
         }
         stage.close();

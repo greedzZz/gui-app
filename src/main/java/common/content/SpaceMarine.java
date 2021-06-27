@@ -12,7 +12,7 @@ public class SpaceMarine implements Comparable<SpaceMarine>, Serializable {
     private String name; //Поле не может быть null, Строка не может быть пустой
     private Coordinates coordinates; //Поле не может быть null
     private LocalDateTime creationDate; //Поле не может быть null, Значение этого поля должно генерироваться автоматически
-    private Integer health; //Поле может быть null, Значение поля должно быть больше 0
+    private Integer health; //Поле не может быть null, Значение поля должно быть больше 0
     private AstartesCategory category; //Поле может быть null
     private Weapon weaponType; //Поле может быть null
     private MeleeWeapon meleeWeapon; //Поле может быть null
@@ -28,8 +28,8 @@ public class SpaceMarine implements Comparable<SpaceMarine>, Serializable {
                        Chapter chapter) throws IllegalArgumentException {
         if (name == null) {
             throw new IllegalArgumentException("Name cannot be empty word.");
-        } else if (health != null && health <= 0) {
-            throw new IllegalArgumentException("Health value must be greater than 0.");
+        } else if (health == null || health <= 0) {
+            throw new IllegalArgumentException("Health value cannot be empty word and must be greater than 0.");
         }
         try {
             this.name = name;
@@ -56,8 +56,8 @@ public class SpaceMarine implements Comparable<SpaceMarine>, Serializable {
                        String owner) throws IllegalArgumentException {
         if (name == null) {
             throw new IllegalArgumentException("Name cannot be empty word.");
-        } else if (health != null && health <= 0) {
-            throw new IllegalArgumentException("Health value must be greater than 0.");
+        } else if (health == null || health <= 0) {
+            throw new IllegalArgumentException("Health value cannot be empty word and must be greater than 0.");
         } else if (id == null) {
             throw new IllegalArgumentException("ID cannot be empty word.");
         } else if (id <= 0) {
@@ -178,9 +178,8 @@ public class SpaceMarine implements Comparable<SpaceMarine>, Serializable {
         return new SimpleStringProperty(getCreationDate());
     }
 
-    public SimpleStringProperty getHealthProperty() {
-        if (health != null) return new SimpleStringProperty(getHealth().toString());
-        else return new SimpleStringProperty(null);
+    public SimpleIntegerProperty getHealthProperty() {
+        return new SimpleIntegerProperty(getHealth());
     }
 
     public SimpleStringProperty getCategoryProperty() {
