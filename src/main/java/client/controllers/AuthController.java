@@ -3,17 +3,22 @@ package client.controllers;
 import client.App;
 import client.CommandManager;
 import client.utility.DialogManager;
+import client.utility.Localizator;
 import common.Reply;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Locale;
+import java.util.ResourceBundle;
 
 public class AuthController {
     private CommandManager commandManager;
     private App app;
+    private Localizator localizator;
+    private HashMap<String, Locale> localeMap;
 
     @FXML
     private Label titleLabel;
@@ -27,15 +32,21 @@ public class AuthController {
     private CheckBox signUpButton;
     @FXML
     private ComboBox<String> languageComboBox;
-    @FXML
-    private Label languageLabel;
 
     @FXML
     void initialize() {
-        ObservableList<String> languages = FXCollections.observableArrayList("Русский", "Slovák", "Shqiptare", "English(CA)");
-        languageComboBox.setItems(languages);
+        localeMap = new HashMap<>();
+        localeMap.put("Русский", new Locale("ru", "RU"));
+        localeMap.put("English(CA)", new Locale("en", "CA"));
+        localeMap.put("Slovák", new Locale("sk", "SK"));
+        localeMap.put("Shqiptare", new Locale("sq", "AL"));
+        languageComboBox.setItems(FXCollections.observableArrayList(localeMap.keySet()));
         languageComboBox.setValue("Русский");
         languageComboBox.setStyle("-fx-font: 13px \"Sergoe UI\";");
+        languageComboBox.getSelectionModel().selectedItemProperty().addListener((observableValue, oldValue, newValue) -> {
+            localizator.setBundle(ResourceBundle.getBundle("client.bundles.gui", localeMap.get(newValue)));
+            changeLang();
+        });
         loginField.textProperty().addListener((observableValue, oldValue, newValue) -> {
             if (!newValue.matches("\\w{0,16}")) {
                 loginField.setText(oldValue);
@@ -54,15 +65,26 @@ public class AuthController {
             Reply reply = commandManager.authorize(signUpButton.isSelected(), loginField.getText(), passwordField.getText());
             if (reply.isSuccessful()) {
                 if (signUpButton.isSelected()) {
-                    DialogManager.createAlert("Info", "Registration completed successfully!", Alert.AlertType.INFORMATION, false);
+                    DialogManager.createAlert(localizator.getKeyString("Info"), localizator.getKeyString("RegisterSuccsess"), Alert.AlertType.INFORMATION, false);
                 }
-                app.startMain(loginField.getText(), reply.getCollection());
+                app.startMain(loginField.getText(), languageComboBox.getValue(), reply.getCollection());
             } else {
-                DialogManager.createAlert("Error", reply.getMessage(), Alert.AlertType.ERROR, false);
+                if (signUpButton.isSelected()) {
+                    DialogManager.createAlert(localizator.getKeyString("Error"), localizator.getKeyString("SignUpError"), Alert.AlertType.ERROR, false);
+                } else {
+                    DialogManager.createAlert(localizator.getKeyString("Error"), localizator.getKeyString("SignInError"), Alert.AlertType.ERROR, false);
+                }
             }
         } else {
-            DialogManager.createAlert("Error", "Login/password cannot be empty word.", Alert.AlertType.ERROR, false);
+            DialogManager.createAlert(localizator.getKeyString("Error"), localizator.getKeyString("SignInEmpty"), Alert.AlertType.ERROR, false);
         }
+    }
+
+    public void changeLang() {
+        titleLabel.setText(localizator.getKeyString("AuthTitle"));
+        loginField.setPromptText(localizator.getKeyString("LoginField"));
+        passwordField.setPromptText(localizator.getKeyString("PasswordField"));
+        signUpButton.setText(localizator.getKeyString("SignUpButton"));
     }
 
     public void setCommandManager(CommandManager commandManager) {
@@ -71,5 +93,9 @@ public class AuthController {
 
     public void setApp(App app) {
         this.app = app;
+    }
+
+    public void setLocalizator(Localizator localizator) {
+        this.localizator = localizator;
     }
 }

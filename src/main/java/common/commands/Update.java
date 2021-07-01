@@ -3,6 +3,7 @@ package common.commands;
 import common.Holder;
 import common.User;
 import common.content.SpaceMarine;
+import javafx.util.Pair;
 
 public class Update extends Command {
     public Update(User user, Integer intArg, SpaceMarine smArg) {
@@ -12,7 +13,7 @@ public class Update extends Command {
     }
 
     @Override
-    public String execute(Holder cm) {
+    public Pair<String, Boolean> execute(Holder cm) {
         return cm.update(intArg, smArg, user.getLogin());
     }
 }

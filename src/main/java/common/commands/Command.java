@@ -4,6 +4,7 @@ import common.Holder;
 import common.User;
 import common.content.Chapter;
 import common.content.SpaceMarine;
+import javafx.util.Pair;
 
 import java.io.Serializable;
 
@@ -22,5 +23,5 @@ public abstract class Command implements Serializable {
         return user;
     }
 
-    public abstract String execute(Holder cm);
+    public abstract Pair<String, Boolean> execute(Holder cm);
 }

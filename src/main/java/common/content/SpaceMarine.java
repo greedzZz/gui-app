@@ -118,6 +118,10 @@ public class SpaceMarine implements Comparable<SpaceMarine>, Serializable {
         return creationDate.toString();
     }
 
+    public LocalDateTime getCreationDateValue() {
+        return this.creationDate;
+    }
+
     public void setCreationDate() {
         this.creationDate = LocalDateTime.now().truncatedTo(ChronoUnit.SECONDS);
     }
@@ -172,10 +176,6 @@ public class SpaceMarine implements Comparable<SpaceMarine>, Serializable {
 
     public SimpleIntegerProperty getYProperty() {
         return new SimpleIntegerProperty(getCoordinateY());
-    }
-
-    public SimpleStringProperty getDateProperty() {
-        return new SimpleStringProperty(getCreationDate());
     }
 
     public SimpleIntegerProperty getHealthProperty() {

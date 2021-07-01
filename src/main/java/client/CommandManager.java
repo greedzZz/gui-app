@@ -1,9 +1,6 @@
 package client;
 
-import client.utility.AnswerReceiver;
-import client.utility.CommandSender;
-import client.utility.Scrambler;
-import client.utility.ScriptReader;
+import client.utility.*;
 import common.Reply;
 import common.Serializer;
 import common.User;
@@ -22,6 +19,7 @@ public class CommandManager {
     private final CommandSender commandSender;
     private final AnswerReceiver answerReceiver;
     private final Scrambler scrambler;
+    private Localizator localizator;
     private User user;
 
     public CommandManager(SocketAddress address, DatagramSocket socket) {
@@ -38,7 +36,7 @@ public class CommandManager {
             user = new User(newbie, login, scrambler.getPassword(password));
             return answerReceiver.receive();
         } catch (IOException e) {
-            return new Reply(null, false, "Unfortunately, the server is currently unavailable.");
+            return new Reply(null, false, localizator.getKeyString("UnavailableError"));
         } catch (ClassNotFoundException e) {
             return new Reply(null, false, e.getMessage());
         }
@@ -125,5 +123,10 @@ public class CommandManager {
             result = new Reply(null, false, e.getMessage());
         }
         return result;
+    }
+
+    public void setLocalizator(Localizator localizator) {
+        this.localizator = localizator;
+        scriptReader.setLocalizator(localizator);
     }
 }

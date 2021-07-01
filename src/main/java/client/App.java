@@ -3,6 +3,7 @@ package client;
 import client.controllers.AuthController;
 import client.controllers.EditController;
 import client.controllers.MainController;
+import client.utility.Localizator;
 import common.content.SpaceMarine;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -14,12 +15,15 @@ import java.io.IOException;
 import java.net.DatagramSocket;
 import java.net.InetSocketAddress;
 import java.net.SocketException;
+import java.util.Locale;
+import java.util.ResourceBundle;
 import java.util.TreeMap;
 
 public class App extends Application {
     private static DatagramSocket socket;
     private static CommandManager commandManager;
     private Stage mainStage;
+    private Localizator localizator;
 
     public static void main(String[] args) {
         try {
@@ -37,12 +41,14 @@ public class App extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
+        localizator = new Localizator(ResourceBundle.getBundle("client.bundles.gui", new Locale("ru", "RU")));
         mainStage = stage;
         FXMLLoader authLoader = new FXMLLoader(getClass().getResource("/auth.fxml"));
         Parent authRoot = authLoader.load();
         AuthController authController = authLoader.getController();
         authController.setApp(this);
         authController.setCommandManager(commandManager);
+        authController.setLocalizator(localizator);
         mainStage.setScene(new Scene(authRoot));
         mainStage.setTitle("Space marines");
         mainStage.setResizable(false);
@@ -55,10 +61,11 @@ public class App extends Application {
         System.exit(1);
     }
 
-    public void startMain(String login, TreeMap<Integer, SpaceMarine> collection) throws IOException {
+    public void startMain(String login, String language, TreeMap<Integer, SpaceMarine> collection) throws IOException {
         FXMLLoader mainLoader = new FXMLLoader(getClass().getResource("/main.fxml"));
         Parent mainRoot = mainLoader.load();
         MainController mainController = mainLoader.getController();
+        mainController.setLocalizator(localizator);
         mainController.setStage(mainStage);
         mainController.setLogin(login);
         mainController.setCollection(collection);
@@ -71,8 +78,10 @@ public class App extends Application {
         editStage.setResizable(false);
         editStage.setTitle("Space marines");
         EditController editController = editLoader.getController();
+        editController.setLocalizator(localizator);
         editController.setStage(editStage);
         mainController.setEditController(editController);
+        mainController.setPrevLang(language);
         mainStage.setScene(new Scene(mainRoot));
         mainController.refresh();
         mainStage.show();

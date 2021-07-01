@@ -1,6 +1,7 @@
 package client.controllers;
 
 import client.utility.DialogManager;
+import client.utility.Localizator;
 import common.content.*;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
@@ -9,9 +10,12 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 
+import java.text.MessageFormat;
+
 public class EditController {
     private Stage stage;
     private SpaceMarine spaceMarine;
+    private Localizator localizator;
 
     @FXML
     private Label titleLabel;
@@ -30,9 +34,9 @@ public class EditController {
     @FXML
     private Label meleeLabel;
     @FXML
-    private Label cNameLable;
+    private Label cNameLabel;
     @FXML
-    private Label cWorldLable;
+    private Label cWorldLabel;
 
     @FXML
     private TextField nameField;
@@ -108,7 +112,9 @@ public class EditController {
         cNameField.setText(cNameField.getText().trim());
         cWorldField.setText(cWorldField.getText().trim());
         if (nameField.getText().equals("") || xField.getText().equals("") || yField.getText().equals("") || cNameField.getText().equals("") || cWorldField.getText().equals("") || healthField.getText().equals("")) {
-            DialogManager.createAlert("Error", "\"Name\", \"x\", \"y\", \"health\", \"chapter name\" and \"chapter world\" values cannot be empty words.", Alert.AlertType.ERROR, false);
+            MessageFormat format = new MessageFormat(localizator.getKeyString("EditError"));
+            String[] params = {"Name", "X", "Y", "health", "chapter name", "chapter world"};
+            DialogManager.createAlert(localizator.getKeyString("Error"), format.format(params), Alert.AlertType.ERROR, false);
         } else {
             AstartesCategory category = null;
             if (categoryBox.getValue() != null) category = AstartesCategory.valueOf(categoryBox.getValue());
@@ -153,12 +159,28 @@ public class EditController {
         cWorldField.setText(sm.getChapterWorld());
     }
 
+    public void changeLang() {
+        titleLabel.setText(localizator.getKeyString("EditTitle"));
+        nameLabel.setText(localizator.getKeyString("Name"));
+        healthLabel.setText(localizator.getKeyString("Health"));
+        categoryLabel.setText(localizator.getKeyString("AstartesCategory"));
+        weaponLabel.setText(localizator.getKeyString("Weapon"));
+        meleeLabel.setText(localizator.getKeyString("MeleeWeapon"));
+        cNameLabel.setText(localizator.getKeyString("ChapterName"));
+        cWorldLabel.setText(localizator.getKeyString("ChapterWorld"));
+        cancelButton.setText(localizator.getKeyString("CancelButton"));
+    }
+
     public void show() {
         stage.showAndWait();
     }
 
     public void setStage(Stage stage) {
         this.stage = stage;
+    }
+
+    public void setLocalizator(Localizator localizator) {
+        this.localizator = localizator;
     }
 }
 

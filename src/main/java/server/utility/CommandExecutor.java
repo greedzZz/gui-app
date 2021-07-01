@@ -3,6 +3,7 @@ package server.utility;
 import common.Reply;
 import common.commands.Command;
 import common.commands.Show;
+import javafx.util.Pair;
 import server.CollectionManager;
 import server.Server;
 
@@ -28,16 +29,16 @@ public class CommandExecutor implements Runnable {
                 if (command instanceof Show) {
                     server.sendAnswer(new Reply(collectionManager.getTreeMap(), true, "Authorization was successful."));
                 } else {
-                    String answer = server.executeCommand(command, collectionManager);
-                    new Thread(() -> server.sendAnswer(new Reply(collectionManager.getTreeMap(), true, answer))).start();
+                    Pair<String, Boolean> answer = server.executeCommand(command, collectionManager);
+                    new Thread(() -> server.sendAnswer(new Reply(collectionManager.getTreeMap(), answer.getValue(), answer.getKey()))).start();
                 }
             } else if (command.getUser().isNewbie()) {
-                server.sendAnswer(new Reply(null, false, "Unfortunately, a user with this login is already registered.\n"));
+                server.sendAnswer(new Reply(null, false, "A user with this login is already registered."));
             } else {
                 server.sendAnswer(new Reply(null, false, "Sorry, the login/password is incorrect."));
             }
         } catch (SQLException s) {
-            server.sendAnswer(new Reply(null, false, "A database access error has occurred or connection has closed.\n"));
+            server.sendAnswer(new Reply(null, false, "A database access error has occurred or connection has closed."));
         }
     }
 }

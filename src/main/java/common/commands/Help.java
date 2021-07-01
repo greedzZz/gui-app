@@ -2,6 +2,7 @@ package common.commands;
 
 import common.Holder;
 import common.User;
+import javafx.util.Pair;
 
 public class Help extends Command {
     public Help(User user) {
@@ -9,7 +10,7 @@ public class Help extends Command {
     }
 
     @Override
-    public String execute(Holder cm) {
+    public Pair<String, Boolean> execute(Holder cm) {
         return cm.help();
     }
 }

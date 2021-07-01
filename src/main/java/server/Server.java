@@ -3,6 +3,7 @@ package server;
 import common.Reply;
 import common.Serializer;
 import common.commands.Command;
+import javafx.util.Pair;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import server.utility.CommandExecutor;
@@ -29,7 +30,6 @@ public class Server {
         this.serializer = new Serializer();
         service = Executors.newFixedThreadPool(8);
         logger.info("Server start.");
-
     }
 
     public static void main(String[] args) {
@@ -60,7 +60,7 @@ public class Server {
         return (Command) serializer.deserialize(bytes);
     }
 
-    public String executeCommand(Command command, CollectionManager cm) {
+    public Pair<String, Boolean> executeCommand(Command command, CollectionManager cm) {
         logger.info("The server is trying to execute a client's request.");
         return command.execute(cm);
     }

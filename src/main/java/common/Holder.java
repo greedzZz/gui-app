@@ -2,18 +2,19 @@ package common;
 
 import common.content.Chapter;
 import common.content.SpaceMarine;
+import javafx.util.Pair;
 
 public interface Holder {
-    String help();
-    String info();
-    String insert(Integer key, SpaceMarine sm, String login);
-    String update(Integer id, SpaceMarine sm, String login);
-    String removeKey(Integer key, String login);
-    String clear(String login);
-    String removeGreater(SpaceMarine sm, String login);
-    String replaceIfGreater(Integer key, SpaceMarine sm, String login);
-    String removeGreaterKey(Integer key, String login);
-    String groupCountingByCoordinates();
-    String filterByChapter(Chapter chapter);
-    String filterStartsWithName(String name);
+    Pair<String, Boolean> help();
+    Pair<String, Boolean> info();
+    Pair<String, Boolean> insert(Integer key, SpaceMarine sm, String login);
+    Pair<String, Boolean> update(Integer id, SpaceMarine sm, String login);
+    Pair<String, Boolean> removeKey(Integer key, String login);
+    Pair<String, Boolean> clear(String login);
+    Pair<String, Boolean> removeGreater(SpaceMarine sm, String login);
+    Pair<String, Boolean> replaceIfGreater(Integer key, SpaceMarine sm, String login);
+    Pair<String, Boolean> removeGreaterKey(Integer key, String login);
+    Pair<String, Boolean> groupCountingByCoordinates();
+    Pair<String, Boolean> filterByChapter(Chapter chapter);
+    Pair<String, Boolean> filterStartsWithName(String name);
 }

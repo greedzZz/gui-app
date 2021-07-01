@@ -14,8 +14,8 @@ public class DialogManager {
         if (!scrollable) alert.setContentText(content);
         else {
             TextArea area = new TextArea(content);
-            area.setPrefWidth(620);
-            area.setPrefHeight(320);
+            area.setPrefWidth(600);
+            area.setPrefHeight(280);
             alert.getDialogPane().setContent(area);
         }
         alert.setResizable(false);
