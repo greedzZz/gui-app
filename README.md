@@ -1,3 +1,8 @@
+![Authorization](/img/authorization.jpg)
+![Table](/img/table.jpg)
+![Visualization](/img/visualization.jpg)
+![Editing](/img/editing.jpg)
+
 Доработать программу из лабораторной работы №7 следующим образом:
 
 Заменить консольный клиент на клиент с графическим интерфейсом пользователя(GUI).
