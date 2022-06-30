@@ -20,7 +20,6 @@ public class ElementReader {
         } catch (NumberFormatException e) {
             throw new IllegalArgumentException("Coordinate X value must be integer.");
         }
-
         int xSM = Integer.parseInt(argument);
 
         argument = sc.nextLine().trim();

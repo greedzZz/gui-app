@@ -38,7 +38,7 @@ public class gui_en_CA extends ListResourceBundle {
             {"EditTitle", "Editing"},
             {"Information", "Info"},
             {"Error", "Error"},
-            {"RegisterSuccsess", "Registration completed successfully!"},
+            {"RegisterSuccess", "Registration completed successfully!"},
             {"SignUpError", "A user with this login is already registered."},
             {"SignInError", "Sorry, the login/password is incorrect."},
             {"SignInEmpty", "Login/password cannot be empty word."},

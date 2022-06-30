@@ -27,8 +27,6 @@ public class AuthController {
     @FXML
     private PasswordField passwordField;
     @FXML
-    private Button okButton;
-    @FXML
     private CheckBox signUpButton;
     @FXML
     private ComboBox<String> languageComboBox;
@@ -65,7 +63,7 @@ public class AuthController {
             Reply reply = commandManager.authorize(signUpButton.isSelected(), loginField.getText(), passwordField.getText());
             if (reply.isSuccessful()) {
                 if (signUpButton.isSelected()) {
-                    DialogManager.createAlert(localizator.getKeyString("Info"), localizator.getKeyString("RegisterSuccsess"), Alert.AlertType.INFORMATION, false);
+                    DialogManager.createAlert(localizator.getKeyString("Info"), localizator.getKeyString("RegisterSuccess"), Alert.AlertType.INFORMATION, false);
                 }
                 app.startMain(loginField.getText(), languageComboBox.getValue(), reply.getCollection());
             } else {

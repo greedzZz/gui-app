@@ -38,7 +38,7 @@ public class gui_ru_RU extends ListResourceBundle {
             {"EditTitle", "Редактирование"},
             {"Information", "Информация"},
             {"Error", "Ошибка"},
-            {"RegisterSuccsess", "Регистрация прошла успешно!"},
+            {"RegisterSuccess", "Регистрация прошла успешно!"},
             {"SignUpError", "Пользователь с этим логином уже зарегистрирован."},
             {"SignInError", "Извините, логин / пароль неверный."},
             {"SignInEmpty", "Логин / пароль не может быть пустым словом."},

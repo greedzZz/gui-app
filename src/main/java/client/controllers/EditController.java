@@ -22,10 +22,6 @@ public class EditController {
     @FXML
     private Label nameLabel;
     @FXML
-    private Label xLabel;
-    @FXML
-    private Label yLabel;
-    @FXML
     private Label healthLabel;
     @FXML
     private Label categoryLabel;
@@ -58,8 +54,6 @@ public class EditController {
     @FXML
     private ChoiceBox<String> meleeBox;
 
-    @FXML
-    private Button okButton;
     @FXML
     private Button cancelButton;
 

@@ -38,7 +38,7 @@ public class gui_sk_SK extends ListResourceBundle {
             {"EditTitle", "Úprava"},
             {"Information", "Info"},
             {"Error", "Chyba"},
-            {"RegisterSuccsess", "Registrácia bola úspešne dokončená!"},
+            {"RegisterSuccess", "Registrácia bola úspešne dokončená!"},
             {"SignUpError", "Užívateľ s týmto prihlásením je už zaregistrovaný."},
             {"SignInError", "Prepáčte, prihlasovacie / heslo je nesprávne."},
             {"SignInEmpty", "Prihlásenie / heslo nemôže byť prázdne slovo."},

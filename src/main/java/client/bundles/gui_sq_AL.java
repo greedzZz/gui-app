@@ -38,7 +38,7 @@ public class gui_sq_AL extends ListResourceBundle {
             {"EditTitle", "Redaktimi"},
             {"Information", "Info"},
             {"Error", "Gabim"},
-            {"RegisterSuccsess", "Regjistrimi përfundoi me sukses!"},
+            {"RegisterSuccess", "Regjistrimi përfundoi me sukses!"},
             {"SignUpError", "Një përdorues me këtë login është regjistruar tashmë."},
             {"SignInError", "Na vjen keq, login / fjalëkalimi është i pasaktë."},
             {"SignInEmpty", "Identifikohu / fjalëkalimi nuk mund të jetë fjalë bosh."},
